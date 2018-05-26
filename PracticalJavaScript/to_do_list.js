@@ -1,7 +1,10 @@
 // This program demonstrates got to utilize objects 
 // dot notation and functions by adding, changing, and toggling 
 // through objects within an array
+
+
 var todoList = {
+  
   todos: [],
   // Object used to display array
   displayTodos: function(){
@@ -20,8 +23,8 @@ var todoList = {
       }
     }
     }
-    
   },
+  
   // Object used to add to an array
   addTodo: function(todoText){
   this.todos.push({
@@ -30,17 +33,22 @@ var todoList = {
   });
   this.displayTodos();
   },
+  
+  
   // Object used to change an elemnet within an array
   changeTodo: function(position, todoText){
-    //this.todos[position] = newValue;
     this.todos[position].todoText = todoText;
     this.displayTodos();
   },
+  
+  
   // Object used to delete a todo
-  deleteTodo: function (startPosisiton, movePosition){
-    this.todos.splice(startPosisiton, movePosition);
+  deleteTodo: function (startPosition, endPosition){
+    this.todos.splice(startPosition, endPosition);
     this.displayTodos();
   },
+  
+  
   // Object used to toggle all todo's in a list
   toggleAll: function(){
     var totalTodos = this.todos.length;
@@ -63,6 +71,7 @@ var todoList = {
         this.todos[i].completed = true;
       }
     }
+    this.displayTodos();
   },
   
   // Object used to toggle the object completed
@@ -73,9 +82,55 @@ var todoList = {
   },
   
 };
+
+// We want to get access to the display todos button
+// We want to run displayTodos method when display todos button is hit
+
+
+// Introduced an Object handlers
+  var handlers = {
+    
+    //Object for display todos button
+    displayTodos: function(){
+    todoList.displayTodos();
+    },
+    
+    //Object for toggle all todos button
+    toggleAll: function(){
+      todoList.toggleAll();
+    },  
+    
+    // Object to add a todo button and text input
+    addTodo: function(){
+      var TodoTextInput = document.getElementById('TodoTextInput');
+      todoList.addTodo(TodoTextInput.value);
+      TodoTextInput.value= '';
+    },
+    
+    // Object for change a todos button and text input
+    changeTodo: function(){
+      var Position = document.getElementById('Position');
+      var newTodoText = document.getElementById('newTodoText');
+      todoList.changeTodo(Position.valueAsNumber,newTodoText.value);
+      Position.valueAsNumber = '';
+      newTodoText.value = '';
+    },
+    
+    // Object for deleting a todo from the list using a button and text input
+    deleteTodo: function(){
+      var startPosisiton = document.getElementById('startPosition');
+      var endPosisiton = document.getElementById('endPosition');
+      todoList.deleteTodo(startPosition.valueAsNumber, endPosition.valueAsNumber);
+      startPosition.valueAsNumber = '';
+    },
+    
+    // Object for toggling a todo from the list using a button and text input
+    toggleCompleted: function(){
+      var togglePosition = document.getElementById('togglePosition');
+      todoList.toggleCompleted(togglePosition.valueAsNumber);
+      togglePosition.valueAsNumber = '';
+      
+    }
   
-  
-
-
-
-
+  };
+ 
